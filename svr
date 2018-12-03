@@ -1,0 +1,21 @@
+"""
+Please note, this code is only for python 3+. If you are using python 2+, please modify the code accordingly.
+"""
+from __future__ import print_function
+from sklearn import preprocessing
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVR
+import matplotlib.pyplot as plt
+
+data = pd.read_csv("data/zhengqi_train.txt",sep = '\t')
+data1 = data.iloc[:,:37]
+data1 = preprocessing.scale(data1)
+
+X_train, X_test, y_train, y_test = train_test_split(data1, data.iloc[:,38], train_size=0.9)
+print(X_train.shape,y_train.shape)
+clf = SVR()
+clf.fit(X_train, np.array(y_train))
+print(clf.score(X_test, y_test))
+
